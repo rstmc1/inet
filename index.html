@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>STRUK INTERNET</title>
+
+<style>
+body{
+  font-family:monospace;
+  background:#eee;
+}
+
+.paper{
+  width:220px; /* 58mm */
+  margin:auto;
+  background:#fff;
+  padding:6px;
+  font-size:8px;
+  line-height:1.25;
+}
+
+.center{text-align:center;}
+
+.row{
+  display:grid;
+  grid-template-columns: 72px 8px 22px 1fr;
+  align-items:center;
+  border-bottom:1px dotted #ccc;
+}
+
+.row span:nth-child(1){
+  text-align:left;
+}
+
+.row.info{
+  grid-template-columns: 72px 8px 22px 1fr;
+ column-gap:0;
+}
+
+.row.info input,
+.row.info select,
+.row.info span:last-child{
+  text-align:left;
+}
+
+.colon{
+  text-align:center;
+}
+
+.rp{
+  text-align:left;
+}
+
+input{
+  text-align:left;
+}
+
+input,select{
+  border:none;
+  background:transparent;
+  font-family:monospace;
+  font-size:8px;
+  width:100%;
+  text-align:left;
+}
+
+select{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  background:transparent;
+}
+
+hr{
+  border:none;
+  border-top:1px dashed #000;
+  margin:4px 0;
+}
+
+button{
+  width:220px;
+  margin:10px auto;
+  display:block;
+  padding:6px;
+}
+
+@media print{
+  body{background:#fff;}
+  button{display:none;}
+  .row{border:none;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="paper">
+
+<div class="center">
+ALFAMART BATU JAMUS KRA / 081294667381<br>
+BATU JAMUS[BJMS]<br>
+ALFA TOWER LT.12, ALAM SUTERA, TANGERANG<br>
+NPWP 01.336.238.9-054.000<br>
+JL. BATU JAMUS - GROMPOL, RT.0 KERJO
+</div>
+<br>
+<hr>
+<div class="center">.: TELKOM PAY TELKOM INDIHOME :.</div>
+<br>
+
+<div class="row info"><span>TGL TRANS</span><span class="colon">:</span><span></span><span id="tgl" class="val"></span></div> 
+<div class="row info"><span>NO TRANS</span><span class="colon">:</span><span></span><input></div> 
+<div class="row info"><span>ID PELANGGAN</span><span class="colon">:</span><span></span><input></div> 
+<div class="row info"><span>NAMA</span><span class="colon">:</span><span></span><input></div> 
+
+<div class="row info"> <span>PERIODE</span><span class="colon">:</span><span></span>
+<select>
+<option>JANUARI</option><option>FEBRUARI</option><option>MARET</option>
+<option>APRIL</option><option>MEI</option><option>JUNI</option>
+<option>JULI</option><option>AGUSTUS</option><option>SEPTEMBER</option>
+<option>OKTOBER</option><option>NOVEMBER</option><option>DESEMBER</option>
+</select>
+</div>
+
+<div class="row"><span>TAGIHAN</span><span class="colon">:</span><span class="rp">Rp</span><input id="tagihan" class="uang"></div>
+<div class="row"><span>TOTAL TAGIHAN</span><span class="colon">:</span><span class="rp">Rp</span><input id="totalTagihan" readonly></div>
+<div class="row"><span>BIAYA ADMIN</span><span class="colon">:</span><span class="rp">Rp</span><input id="admin" class="uang"></div>
+<div class="row"><span>TOTAL BAYAR</span><span class="colon">:</span><span class="rp">Rp</span><input id="totalBayar" readonly></div>
+
+<br>
+<div class="center">DETAIL BAYAR</div>
+
+<div class="row"><span>TOTAL TAGIHAN</span><span class="colon">:</span><span class="rp">Rp</span><input id="detail" readonly></div>
+<div class="row"><span>TOTAL DISKON</span><span class="colon">:</span><span class="rp">Rp</span><input id="diskon" class="uang"></div>
+<div class="row"><span>SETELAH DISKON</span><span class="colon">:</span><span class="rp">Rp</span><input id="after" readonly></div>
+
+<br>
+
+<div class="row"><span>TUNAI</span><span class="colon">:</span><span class="rp">Rp</span><input id="tunai" readonly></div>
+<div class="row"><span>NON TUNAI/KARTU</span><span class="colon">:</span><span class="rp">Rp</span><span class="val">0,-</span></div>
+<div class="row"><span>VOUCHER</span><span class="colon">:</span><span class="rp">Rp</span><span class="val">0,-</span></div>
+
+<br>
+
+<div class="center">
+Terima kasih atas kepercayaan<br>
+Anda menggunakan Finchannel
+</div>
+
+<hr>
+<br>
+<div class="center">
+KRITIK&SARAN 1500959<br>
+SMS/WA 08111064888
+</div>
+
+</div>
+
+<button onclick="window.print()">PRINT</button>
+
+<script>
+
+/* tanggal */
+function tgl(){
+  let d=new Date();
+  let f=n=>n.toString().padStart(2,'0');
+  document.getElementById("tgl").textContent=
+    `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())} `+
+    `${f(d.getDate())}-${f(d.getMonth()+1)}-${d.getFullYear().toString().slice(-2)}`;
+}
+tgl();
+
+/* format uang stabil */
+function clean(v){return v.replace(/[^\d]/g,'');}
+
+function format(v){
+  if(!v) return "";
+  return Number(v).toLocaleString("id-ID")+",-";
+}
+
+document.querySelectorAll(".uang").forEach(inp=>{
+  inp.addEventListener("input",()=>{
+    let raw=clean(inp.value);
+    inp.dataset.raw=raw;
+    inp.value=format(raw);
+    hitung();
+  });
+
+  inp.addEventListener("keydown",e=>{
+    if(e.key==="Backspace"){
+      let raw=inp.dataset.raw||"";
+      raw=raw.slice(0,-1);
+      inp.dataset.raw=raw;
+      inp.value=format(raw);
+      e.preventDefault();
+      hitung();
+    }
+  });
+});
+
+function angka(id){
+  return parseInt(document.getElementById(id).dataset.raw||0);
+}
+
+function set(id,val){
+  document.getElementById(id).value=format(val);
+}
+
+function hitung(){
+
+  let t=angka("tagihan");
+  let a=angka("admin");
+  let d=angka("diskon");
+
+  let total=t+a;
+  let after=total-d;
+
+  set("totalTagihan",t);
+  set("totalBayar",total);
+  set("detail",total);
+  set("after",after);
+  set("tunai",after);
+}
+
+</script>
+
+</body>
+</html>
