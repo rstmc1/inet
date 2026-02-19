@@ -86,23 +86,28 @@ button{
 
 @media print{
   body{
-    background:#fff;
     margin:0;
+    padding-top:10mm;   /* dorong isi turun */
+  }
+
+  .paper{
+    padding-top:0;
   }
 
   @page{
-    margin-top:15mm;
-    margin-bottom:15mm;
+    margin:0;
   }
 
   button{display:none;}
   .row{border:none;}
 }
 
+
 </style>
 </head>
 
 <body>
+<div style="height:10mm;"></div>
 
 <div class="paper">
 
@@ -237,6 +242,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
