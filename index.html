@@ -11,10 +11,10 @@ body{
 }
 
 .paper{
-  width:220px; /* 58mm */
+  width:220px;
   margin:auto;
   background:#fff;
-  padding:6px;
+  padding:30px 6px 6px 6px; /* FIX RAWBT agar tidak kepotong */
   font-size:10px;
   line-height:1.25;
 }
@@ -84,10 +84,6 @@ button{
   padding:6px;
 }
 
-.eppos-top{
-  height:16mm;   /* khusus EPPOS supaya tidak kepotong */
-}
-
 @media print{
 
   @page{
@@ -108,8 +104,6 @@ button{
 <body>
   
 <div class="paper">
-
-<div class="eppos-top"></div>
 
 <div class="center">
 ALFAMART BATU JAMUS KRA / 081294667381<br>
@@ -242,6 +236,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
