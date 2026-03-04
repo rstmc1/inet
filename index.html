@@ -123,7 +123,7 @@ JL. BATU JAMUS - GROMPOL, RT.0 KERJO
 <div class="center">.: TELKOM PAY TELKOM INDIHOME :.</div>
 <br>
 
-<div class="row info"><span>TGL TRANS</span><span class="colon">:</span><span></span><span id="tgl" class="val"></span></div> 
+<div class="row info"><span>TGL TRANS</span><span class="colon">:</span><span></span><input id="tgl"></div>
 <div class="row info"><span>NO TRANS</span><span class="colon">:</span><span></span><input></div> 
 <div class="row info"><span>ID PELANGGAN</span><span class="colon">:</span><span></span><input></div> 
 <div class="row info"><span>NAMA</span><span class="colon">:</span><span></span><input></div> 
@@ -180,7 +180,7 @@ SMS/WA 08111064888
 function tgl(){
   let d=new Date();
   let f=n=>n.toString().padStart(2,'0');
-  document.getElementById("tgl").textContent=
+ document.getElementById("tgl").value=
     `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())} `+
     `${f(d.getDate())}-${f(d.getMonth()+1)}-${d.getFullYear().toString().slice(-2)}`;
 }
@@ -242,6 +242,7 @@ function hitung(){
 
 </body>
 </html>
+
 
 
 
